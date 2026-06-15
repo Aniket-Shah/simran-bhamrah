@@ -1,0 +1,73 @@
+/* 
+  globals-template.css
+  =====================
+  Copy this file to your project as globals.css
+  Change ONLY the 8 values in the Brand Palette section per client.
+  Never touch the semantic token names — they're referenced by every component.
+*/
+
+@import "tailwindcss";
+
+@theme {
+  /* ─── Brand Palette — ONLY EDIT THESE 8 VALUES PER PROJECT ─── */
+  --color-bg: #f5f7fa;
+  --color-primary: #1a3c5e;
+  --color-primary-fg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #0d1829;
+  --color-muted: #5a6a7e;
+  --color-border: #dde3ed;
+  --color-accent: #0f9d7e;
+
+  /* ─── Typography Scale — DO NOT EDIT ─── */
+  --fs-xs:    clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --fs-sm:    clamp(0.875rem, 0.8rem  + 0.375vw, 1rem);
+  --fs-base:  clamp(1rem,     0.9rem  + 0.5vw,   1.125rem);
+  --fs-lg:    clamp(1.25rem, 1.1rem  + 0.75vw, 1.5rem);
+  --fs-xl:    clamp(1.5rem,  1.3rem  + 1vw,    2rem);
+  --fs-2xl:   clamp(2rem,    1.6rem  + 2vw,    3rem);
+  --fs-3xl:   clamp(3rem,    2.4rem  + 3vw,    5rem);
+  --fs-hero:  clamp(3.5rem,  2.5rem  + 5vw,    8rem);
+
+  /* ─── Spacing 8pt Grid — DO NOT EDIT ─── */
+  --s-1:   0.5rem;
+  --s-2:   1rem;
+  --s-3:   1.5rem;
+  --s-4:   2rem;
+  --s-6:   3rem;
+  --s-8:   4rem;
+  --s-12:  6rem;
+  --s-16:  8rem;
+  --s-24:  12rem;
+
+  /* ─── Motion — DO NOT EDIT ─── */
+  --d-fast:    200ms;
+  --d-base:    400ms;
+  --d-slow:    800ms;
+  --d-slower:  1200ms;
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ─── Base Styles ─── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--fs-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
