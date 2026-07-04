@@ -1,33 +1,33 @@
-/* 
-  globals-template.css
-  =====================
-  Copy this file to your project as globals.css
-  Change ONLY the 8 values in the Brand Palette section per client.
-  Never touch the semantic token names — they're referenced by every component.
+/*
+  globals.css — Simran Bhamrah Portfolio
+  ShapeKraft-lib template · Lime brand palette
+  Edit ONLY the 8 brand values. Never touch anything below.
 */
 
 @import "tailwindcss";
 
 @theme {
-  /* ─── Brand Palette — ONLY EDIT THESE 8 VALUES PER PROJECT ─── */
-  --color-bg: #f5f7fa;
-  --color-primary: #1a3c5e;
-  --color-primary-fg: #ffffff;
-  --color-surface: #ffffff;
-  --color-text: #0d1829;
-  --color-muted: #5a6a7e;
-  --color-border: #dde3ed;
-  --color-accent: #0f9d7e;
+  /* ─── Brand Palette — ONLY EDIT THESE 8 VALUES ─── */
+  --color-primary:      #d1e729;
+  --color-primary-dark: #b8cc1e;
+  --color-primary-bg:   rgba(209, 231, 41, 0.13);
+  --color-primary-fg:   #1a1a1a;
+  --color-bg:           #f5f5f0;
+  --color-surface:      #ffffff;
+  --color-text:         #1a1a1a;
+  --color-muted:        #6b7280;
+  --color-border:       #e5e5e0;
+  --color-accent:       #d1e729;
 
   /* ─── Typography Scale — DO NOT EDIT ─── */
   --fs-xs:    clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
   --fs-sm:    clamp(0.875rem, 0.8rem  + 0.375vw, 1rem);
   --fs-base:  clamp(1rem,     0.9rem  + 0.5vw,   1.125rem);
-  --fs-lg:    clamp(1.25rem, 1.1rem  + 0.75vw, 1.5rem);
-  --fs-xl:    clamp(1.5rem,  1.3rem  + 1vw,    2rem);
-  --fs-2xl:   clamp(2rem,    1.6rem  + 2vw,    3rem);
-  --fs-3xl:   clamp(3rem,    2.4rem  + 3vw,    5rem);
-  --fs-hero:  clamp(3.5rem,  2.5rem  + 5vw,    8rem);
+  --fs-lg:    clamp(1.25rem,  1.1rem  + 0.75vw,  1.5rem);
+  --fs-xl:    clamp(1.5rem,   1.3rem  + 1vw,     2rem);
+  --fs-2xl:   clamp(2rem,     1.6rem  + 2vw,     3rem);
+  --fs-3xl:   clamp(3rem,     2.4rem  + 3vw,     5rem);
+  --fs-hero:  clamp(3.5rem,   2.5rem  + 5vw,     8rem);
 
   /* ─── Spacing 8pt Grid — DO NOT EDIT ─── */
   --s-1:   0.5rem;
@@ -48,20 +48,62 @@
   --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
   --ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ─── Layout ─── */
+  --max-w:    1440px;
+  --gutter:   clamp(1rem, 4vw, 2rem);
+
+  /* ─── Border Radius ─── */
+  --radius-sm:   0.5rem;
+  --radius-md:   1rem;
+  --radius-lg:   2rem;
+  --radius-full: 9999px;
+
+  /* ─── Z-index Scale ─── */
+  --z-base:    0;
+  --z-above:   10;
+  --z-nav:     100;
+  --z-modal:   200;
+  --z-cursor:  999;
+  --z-toast:   9999;
 }
 
-/* ─── Base Styles ─── */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ─── Keyframes ─── */
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box;}
+html, body {
+  overflow-x: hidden;
+}
 html {
-  background-color: var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
-  font-size: var(--fs-base);
   -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+/* ─── Sidebar responsive offset (CSS variable, consumed by inline style) ─── */
+:root {
+  --sidebar-offset: 0px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-offset: 220px;
+  }
 }
 
 /* ─── Reduced Motion ─── */

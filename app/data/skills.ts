@@ -3,6 +3,11 @@ export interface SkillCategory {
   pills: string[];
 }
 
+export interface BarSkill {
+  name: string;
+  percent: number;
+}
+
 export const skills: SkillCategory[] = [
   {
     label: "Languages & Frameworks",
@@ -14,8 +19,8 @@ export const skills: SkillCategory[] = [
       "Angular",
       "JavaScript",
       "Python",
-      "Shell Scripting"
-    ]
+      "Shell Scripting",
+    ],
   },
   {
     label: "Databases & Data",
@@ -25,19 +30,19 @@ export const skills: SkillCategory[] = [
       "MySQL",
       "CDP Impala",
       "ETL Pipelines",
-      "Data Reconciliation"
-    ]
+      "Data Reconciliation",
+    ],
   },
   {
     label: "DevOps & Platforms",
     pills: [
-      "CI\/CD",
+      "CI/CD",
       "Jenkins",
       "Git",
       "Linux",
       "NGINX",
-      "Release Management"
-    ]
+      "Release Management",
+    ],
   },
   {
     label: "CMS & Web",
@@ -47,7 +52,16 @@ export const skills: SkillCategory[] = [
       "HTML",
       "CSS",
       "SCSS",
-      "Postman"
-    ]
-  }
+      "Postman",
+    ],
+  },
+];
+
+export const barSkills: BarSkill[] = [
+  { name: "Java / Spring Boot", percent: 90 },
+  { name: "PostgreSQL / Oracle", percent: 85 },
+  { name: "Angular / JavaScript", percent: 80 },
+  { name: "AEM / HTL (Sightly)", percent: 75 },
+  { name: "CI/CD / Jenkins", percent: 80 },
+  { name: "Python / Shell Script", percent: 70 },
 ];

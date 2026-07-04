@@ -1,140 +1,167 @@
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
-// Navigation links – adjust hrefs as needed for your routing strategy
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
-];
+interface NavLink {
+  href: string;
+  label: string;
+}
 
-export const NavStickyMinimal = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [showNav, setShowNav] = useState(true);
-  const prevScrollY = useRef(0);
-  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+interface NavStickyMinimalProps {
+  logo: React.ReactNode;
+  links: NavLink[];
+  cta?: React.ReactNode;
+}
 
-  // Hide on scroll down, show on scroll up
+export const NavStickyMinimal = ({ logo, links, cta }: NavStickyMinimalProps) => {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('Home');
+
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (currentY > prevScrollY.current && currentY > 50) {
-        setShowNav(false);
-      } else {
-        setShowNav(true);
+    const handler = () => {
+      const scrollY = window.scrollY;
+      if (scrollY < 120) { setActive('Home'); return; }
+      const sectionOrder = ['contact', 'experience', 'projects', 'skills', 'about'];
+      for (const id of sectionOrder) {
+        const el = document.getElementById(id);
+        if (el && scrollY >= el.offsetTop - 120) {
+          setActive(id.charAt(0).toUpperCase() + id.slice(1));
+          return;
+        }
       }
-      prevScrollY.current = currentY;
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handler, { passive: true });
+    handler();
+    return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  // Focus trap & escape handling for mobile overlay
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMobileOpen(false);
-      }
-    };
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-      firstLinkRef.current?.focus();
-      window.addEventListener('keydown', handleKey);
-    } else {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKey);
-    }
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [mobileOpen]);
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 transition-transform duration-300 ${
-        showNav ? 'translate-y-0' : '-translate-y-full'
-      } backdrop-blur-sm`}
-      style={{ background: 'var(--color-surface)' }}
-      aria-label="Main navigation"
-    >
-      {/* Logo */}
-      <div className="font-bold text-xl" style={{ color: 'var(--color-primary)' }}>
-        SB
-      </div>
-
-      {/* Desktop navigation – hidden on small screens */}
-      <ul className="hidden md:flex md:gap-6 lg:gap-8">
-        {navLinks.map((link) => (
-          <li key={link.href} className="group relative">
-            <Link
-              href={link.href}
-              className="text-base font-medium transition-colors duration-200 hover:text-[var(--color-primary-fg)]"
-              style={{ color: 'var(--color-primary)' }}
-            >
-              {link.label}
-            </Link>
-            {/* Hover underline draw animation */}
-            <span
-              className="absolute left-0 -bottom-1 h-0.5 w-0 transition-all duration-300 group-hover:w-full"
-              style={{ background: 'var(--color-primary)' }}
-            />
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA – visible on tablet and up */}
-      <div className="hidden md:block">
-        <a
-          href="/resume.pdf"
-          style={{ background: 'var(--color-accent)', color: 'var(--color-primary-fg)' }}
-          className="px-4 py-2 rounded-md font-medium"
-        >
-          Download CV
-        </a>
-      </div>
-
-      {/* Mobile hamburger – visible on small screens */}
-      <button
-        type="button"
-        aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="md:hidden"
-        style={{ color: 'var(--color-primary)' }}
+    <>
+      {/* Nav bar — z raised above backdrop when menu is open so the X is clickable */}
+      <nav
+        className="fixed inset-x-0 top-0 border-b border-[var(--color-border)] backdrop-blur-sm"
+        style={{ zIndex: open ? 210 : 100, background: 'var(--color-surface)' }}
+        aria-label="Main navigation"
       >
-        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+        <div className="mx-auto flex items-center justify-between py-[18px] px-[var(--gutter)]" style={{ maxWidth: '1440px' }}>
+          {/* Logo */}
+          <Link href="/" className="text-xl font-black tracking-tight shrink-0" aria-label="Home">
+            {logo}
+          </Link>
 
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 flex flex-col items-center justify-center space-y-6"
-          aria-modal="true"
-          role="dialog"
-          style={{ background: 'var(--color-text)', opacity: 0.8 }}
-        >
-          {navLinks.map((link, idx) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              ref={idx === 0 ? firstLinkRef : undefined}
-              className="text-2xl font-medium opacity-0 animate-fade-in"
-              style={{ color: 'var(--color-primary-fg)', animationDelay: `${idx * 100}ms` }}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          {/* Mobile CTA */}
-          <a
-            href="/resume.pdf"
-            style={{ background: 'var(--color-accent)', color: 'var(--color-primary-fg)' }}
-            className="mt-4 px-6 py-3 rounded-md font-medium"
-            onClick={() => setMobileOpen(false)}
+          {/* Desktop nav */}
+          <ul className="hidden md:flex gap-[var(--s-4)] lg:gap-[var(--s-6)]">
+            {links.map((link) => {
+              const isActive = active === link.label;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="pb-1 transition-colors duration-200"
+                    style={{
+                      fontSize: 'var(--fs-sm)',
+                      fontWeight: isActive ? '600' : '500',
+                      color: isActive ? 'var(--color-text)' : 'var(--color-muted)',
+                      borderBottom: isActive
+                        ? '2px solid var(--color-primary)'
+                        : '2px solid transparent',
+                    }}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          {cta && <div className="hidden md:block shrink-0">{cta}</div>}
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen(!open)}
+            className="md:hidden p-2 text-[var(--color-text)]"
           >
-            Download CV
-          </a>
+            {open ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+          </button>
         </div>
+      </nav>
+
+      {/* Backdrop — sibling of nav, NOT inside it, so fixed positioning works correctly */}
+      {open && (
+        <div
+          className="md:hidden fixed inset-0"
+          style={{ background: 'rgba(0,0,0,0.75)', zIndex: 190 }}
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
       )}
-    </nav>
+
+      {/* Drawer — sibling of nav for the same reason */}
+      <div
+        className={`md:hidden fixed inset-y-0 left-0 w-4/5 max-w-xs shadow-xl flex flex-col transform transition-transform duration-300 ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        style={{ background: 'var(--color-surface)', zIndex: 200 }}
+        aria-hidden={!open}
+      >
+        {/* Drawer header */}
+        <div
+          className="flex items-center justify-between px-6 py-4 border-b shrink-0"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
+          <span className="text-xl font-black tracking-tight">
+            S<span style={{ color: 'var(--color-primary)' }}>B</span>
+          </span>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="p-2 rounded-lg text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+          >
+            <X size={22} aria-hidden="true" />
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <nav className="flex-1 overflow-y-auto px-4 py-5" aria-label="Mobile navigation">
+          <ul className="flex flex-col gap-1">
+            {links.map((link) => {
+              const isActive = active === link.label;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center px-4 py-3 rounded-xl font-semibold transition-colors duration-200"
+                    style={{
+                      fontSize: 'var(--fs-base)',
+                      background: isActive ? 'var(--color-primary-bg)' : 'transparent',
+                      color: isActive ? 'var(--color-text)' : 'var(--color-muted)',
+                    }}
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* CTA pinned to bottom */}
+        {cta && (
+          <div
+            className="px-6 py-5 border-t shrink-0"
+            style={{ borderColor: 'var(--color-border)' }}
+          >
+            {cta}
+          </div>
+        )}
+      </div>
+    </>
   );
 };

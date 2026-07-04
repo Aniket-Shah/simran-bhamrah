@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la //wsl.localhost/Debian/var/www/html/simran-bhamrah/app/)",
+      "Read(///wsl.localhost/Debian/var/www/html/simran-bhamrah/**)",
+      "Bash(ls -la //wsl.localhost/Debian/var/www/html/simran-bhamrah/components/)",
+      "Bash(ls -la //wsl.localhost/Debian/var/www/html/simran-bhamrah/public/)",
+      "Bash(find //wsl.localhost/Debian/var/www/html/simran-bhamrah -type d | sort)",
+      "Read(///wsl.localhost/Debian/var/www/html/**)",
+      "Bash(ls -la //wsl.localhost/Debian/var/www/html/simran-bhamrah/components/sections/)",
+      "Read(///wsl.localhost/Debian/var/www/html/simran-bhamrah/components/**)",
+      "Bash(find //wsl.localhost/Debian/var/www/html/simran-bhamrah/components -type f -name \"*.tsx\" -o -name \"*.ts\")"
+    ]
+  }
+}

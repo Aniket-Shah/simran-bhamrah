@@ -1,85 +1,112 @@
+import { Briefcase } from 'lucide-react';
 import { FadeUp } from '@/components/motion/FadeUp';
 import { experience } from '@/app/data/experience';
 
 export const ExperienceSection = () => {
   return (
     <section
-      aria-label="Experience"
-      className="py-12 px-4 md:px-8 lg:px-12"
+      aria-label="Professional Experience"
+      className="py-10 border-t"
+      style={{ borderColor: 'var(--color-border)' }}
     >
-      {/* Section heading */}
-      <h2
-        style={{ fontSize: 'var(--fs-2xl)', color: 'var(--color-text)' }}
-        className="font-bold mb-8"
-      >
-        Experience
-      </h2>
+      <FadeUp>
+        <div className="flex items-center gap-2 mb-8">
+          <span
+            className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+            style={{ background: 'var(--color-primary-bg)' }}
+            aria-hidden="true"
+          >
+            <Briefcase size={15} style={{ color: 'var(--color-primary-dark)' }} />
+          </span>
+          <h2
+            className="font-bold"
+            style={{ fontSize: 'var(--fs-xl)', color: 'var(--color-text)' }}
+          >
+            Experience
+          </h2>
+        </div>
+      </FadeUp>
 
-      {/* Timeline container */}
-      <div className="relative">
-        {/* Vertical line */}
-        <div
-          className="absolute left-4 top-0 bottom-0 w-px"
-          style={{ background: 'var(--color-border)' }}
-          aria-hidden="true"
-        />
+      <div className="flex flex-col gap-5">
         {experience.map((entry, idx) => (
-          <FadeUp key={entry.company + idx} style={{ animationDelay: `${idx * 150}ms` }}>
-            <div className="flex items-start mb-12">
-              {/* Dot and connecting line */}
-              <div className="relative flex flex-col items-center mr-4">
-                <span
-                  className="block w-3 h-3 rounded-full"
-                  style={{
-                    background: entry.featured ? 'var(--color-accent)' : 'var(--color-primary)'
-                  }}
-                />
-                {/* Line segment below dot – only show if not last entry */}
-                {idx < experience.length - 1 && (
-                  <span
-                    className="flex-1 w-px"
-                    style={{ background: 'var(--color-border)' }}
-                  />
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <h3
-                    className="font-bold"
-                    style={{ color: 'var(--color-text)' }}
-                  >
-                    {entry.company}
-                  </h3>
-                  {entry.featured && (
-                    <span
-                      className="px-[6px] py-[2px] rounded-full"
-                      style={{
-                        background: 'var(--color-accent)',
-                        color: 'var(--color-primary-fg)',
-                        fontSize: 'var(--fs-xs)'
-                      }}
+          <FadeUp key={entry.company} delay={idx * 120}>
+            <article
+              className="rounded-2xl border p-6"
+              style={{
+                background: 'var(--color-surface)',
+                borderColor: entry.featured
+                  ? 'var(--color-primary)'
+                  : 'var(--color-border)',
+                borderWidth: entry.featured ? '1.5px' : '1px',
+              }}
+            >
+              {/* Header row */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                    <h3
+                      className="font-extrabold"
+                      style={{ fontSize: 'var(--fs-base)', color: 'var(--color-text)' }}
                     >
-                      Featured
-                    </span>
-                  )}
+                      {entry.company}
+                    </h3>
+                    {entry.featured && (
+                      <span
+                        className="px-2 py-0.5 rounded-full font-bold"
+                        style={{
+                          fontSize: '0.6rem',
+                          background: 'var(--color-primary)',
+                          color: 'var(--color-primary-fg)',
+                        }}
+                      >
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <p
+                    className="font-semibold"
+                    style={{
+                      fontSize: 'var(--fs-sm)',
+                      color: 'var(--color-primary-dark)',
+                    }}
+                  >
+                    {entry.role}
+                  </p>
                 </div>
-                <p style={{ color: 'var(--color-muted)' }}>{entry.role}</p>
-                <p
-                  style={{ fontSize: 'var(--fs-sm)', color: 'var(--color-muted)' }}
+                <span
+                  className="shrink-0 px-3 py-1 rounded-full border font-medium"
+                  style={{
+                    fontSize: 'var(--fs-xs)',
+                    color: 'var(--color-muted)',
+                    borderColor: 'var(--color-border)',
+                    background: 'var(--color-bg)',
+                    whiteSpace: 'nowrap',
+                  }}
                 >
                   {entry.period}
-                </p>
-                <ul className="list-disc list-inside mt-2 space-y-1">
-                  {entry.bullets.map((bullet, bIdx) => (
-                    <li key={bIdx} style={{ color: 'var(--color-text)' }}>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                </span>
               </div>
-            </div>
+
+              {/* Bullet points */}
+              <ul className="flex flex-col gap-2">
+                {entry.bullets.map((bullet, bIdx) => (
+                  <li
+                    key={bIdx}
+                    className="flex gap-2 items-start leading-relaxed"
+                    style={{ fontSize: 'var(--fs-sm)', color: 'var(--color-muted)' }}
+                  >
+                    <span
+                      className="shrink-0 font-black mt-0.5"
+                      style={{ color: 'var(--color-primary)' }}
+                      aria-hidden="true"
+                    >
+                      ·
+                    </span>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </article>
           </FadeUp>
         ))}
       </div>

@@ -59,16 +59,7 @@ export const ContactSection = () => {
           </div>
         </FadeIn>
 
-        {/* Footer lines */}
-        <p
-          style={{
-            fontSize: 'var(--fs-xs)',
-            color: 'var(--color-muted)'
-          }}
-        >
-          🎓 B.Tech Computer Science · K.C. College of Engineering<br />
-          🏆 TCS Best Team Award · TCS Star of the Month
-        </p>
+
       </div>
     </section>
   );
