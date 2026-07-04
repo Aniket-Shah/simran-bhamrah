@@ -1,4 +1,4 @@
-import { MapPin, Mail, Linkedin, ArrowRight, Briefcase, Zap, Sparkles, User, GraduationCap, Trophy, Download } from 'lucide-react';
+import { MapPin, Mail, Linkedin, Github, ArrowRight, Briefcase, Zap, Sparkles, User, GraduationCap, Trophy, Download } from 'lucide-react';
 import { FadeUp } from '@/components/motion/FadeUp';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { personal } from '@/app/data/personal';
@@ -7,6 +7,7 @@ const aboutRows = [
   { icon: MapPin, label: 'From', value: (p: typeof personal) => p.location },
   { icon: Mail, label: 'Email', value: (p: typeof personal) => p.email },
   { icon: Linkedin, label: 'LinkedIn', value: (p: typeof personal) => p.linkedinHandle },
+  { icon: Github, label: 'GitHub', value: (p: typeof personal) => p.githubHandle },
   { icon: Briefcase, label: 'Status', value: (p: typeof personal) => p.availability },
 ];
 

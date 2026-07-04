@@ -56,6 +56,19 @@ export const ContactSection = () => {
             >
               Send an Email
             </Link>
+            <Link
+              href={personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 rounded-md flex items-center justify-center"
+              style={{
+                background: 'transparent',
+                border: '2px solid var(--color-primary)',
+                color: 'var(--color-primary)'
+              }}
+            >
+              View GitHub
+            </Link>
           </div>
         </FadeIn>
 

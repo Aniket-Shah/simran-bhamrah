@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Home, User, Code2, FolderOpen, Briefcase, Mail, Linkedin } from 'lucide-react';
+import { Home, User, Code2, FolderOpen, Briefcase, Mail, Linkedin, Github } from 'lucide-react';
 import { personal } from '@/app/data/personal';
 
 const NAV_ITEMS = [
@@ -120,6 +120,15 @@ export const Sidebar = () => {
             className="hover:opacity-70 transition-opacity"
           >
             <Linkedin size={15} style={{ color: 'var(--color-muted)' }} aria-hidden="true" />
+          </a>
+          <a
+            href={personal.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+            className="hover:opacity-70 transition-opacity"
+          >
+            <Github size={15} style={{ color: 'var(--color-muted)' }} aria-hidden="true" />
           </a>
         </div>
       </div>

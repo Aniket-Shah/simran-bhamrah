@@ -8,6 +8,8 @@ export interface PersonalInfo {
   email: string;
   linkedin: string;
   linkedinHandle: string;
+  github: string;
+  githubHandle: string;
   availability: string;
   stats: { value: string; label: string }[];
 }
@@ -23,6 +25,8 @@ export const personal: PersonalInfo = {
   email: "simranbhamrah1997@gmail.com",
   linkedin: "https://www.linkedin.com/in/simran-bhamrah/",
   linkedinHandle: "linkedin.com/in/simran-bhamrah",
+  github: "https://github.com/simran-dev-28",
+  githubHandle: "github.com/simran-dev-28",
   availability: "Open to Opportunities",
   stats: [
     { value: "5+", label: "Years Experience" },
