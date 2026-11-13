@@ -17,6 +17,8 @@ export const HeroSplit = () => {
       aria-label="Hero"
       className="flex flex-col xl:flex-row gap-6 xl:gap-8 py-10 xl:py-14 items-start"
     >
+      {/* Text and photo sit side by side from tablet width up; the About card joins the row at xl */}
+      <div className="flex-1 min-w-0 w-full flex flex-col md:flex-row gap-6 xl:gap-8 items-start">
       {/* ── Left: Text Content ── */}
       <div className="flex-1 min-w-0 w-full flex flex-col gap-5 xl:gap-6">
         <FadeUp delay={0}>
@@ -104,7 +106,7 @@ export const HeroSplit = () => {
 
       {/* ── Center: Avatar Card ── */}
       <div
-        className="relative shrink-0 self-center xl:self-auto"
+        className="relative shrink-0 self-center md:self-auto"
         style={{ width: '240px', height: '320px' }}
         aria-hidden="true"
       >
@@ -148,6 +150,7 @@ export const HeroSplit = () => {
             objectPosition: 'bottom',
           }}
         />
+      </div>
       </div>
 
       {/* ── Right: About Me Card ── */}

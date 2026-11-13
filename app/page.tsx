@@ -16,6 +16,10 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ];
 
+// The top nav is fixed and 65px tall. Without this offset a menu link scrolls a
+// section's top edge to y=0 and the nav covers its heading.
+const anchor = 'scroll-mt-[65px]';
+
 export default function Home() {
   return (
     <>
@@ -48,19 +52,19 @@ export default function Home() {
       {/* Main content offset: CSS var --sidebar-offset = 0 mobile / 220px desktop */}
       <div style={{ paddingTop: '65px', marginLeft: 'var(--sidebar-offset)' }}>
         <main className="px-[var(--gutter)] py-0" style={{ maxWidth: '1140px', margin: '0 auto' }}>
-          <div id="about">
+          <div id="about" className={anchor}>
             <HeroSplit />
           </div>
-          <div id="skills">
+          <div id="skills" className={anchor}>
             <SkillsSection />
           </div>
-          <div id="projects">
+          <div id="projects" className={anchor}>
             <ProjectsSection />
           </div>
-          <div id="experience">
+          <div id="experience" className={anchor}>
             <ExperienceSection />
           </div>
-          <div id="contact">
+          <div id="contact" className={anchor}>
             <ContactSection />
           </div>
         </main>
