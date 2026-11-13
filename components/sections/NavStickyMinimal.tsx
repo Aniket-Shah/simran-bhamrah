@@ -23,6 +23,11 @@ export const NavStickyMinimal = ({ logo, links, cta }: NavStickyMinimalProps) =>
     const handler = () => {
       const scrollY = window.scrollY;
       if (scrollY < 120) { setActive('Home'); return; }
+      // The last section is too short to reach the top, so mark it when the page hits the bottom.
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
+        setActive('Contact');
+        return;
+      }
       const sectionOrder = ['contact', 'experience', 'projects', 'skills', 'about'];
       for (const id of sectionOrder) {
         const el = document.getElementById(id);
